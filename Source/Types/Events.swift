@@ -30,7 +30,7 @@ extension Permission {
         let status = EKEventStore.authorizationStatus(for: .event)
 
         switch status {
-        case .authorized:          return .authorized
+        case .authorized, .writeOnly:          return .authorized
         case .restricted, .denied: return .denied
         case .notDetermined:       return .notDetermined
         @unknown default:          return .notDetermined
@@ -38,9 +38,14 @@ extension Permission {
     }
 
     func requestEvents(_ callback: @escaping Callback) {
-        EKEventStore().requestAccess(to: .event) { _, _ in
-            callback(self.statusEvents)
+        if #available(iOS 17.0, *) {
+            EKEventStore().requestFullAccessToEvents { _, _ in
+                callback(self.statusEvents)
+            }
+        } else {
+            EKEventStore().requestAccess(to: .event) { _, _ in
+                callback(self.statusEvents)
+            }
         }
     }
 }
-#endif
