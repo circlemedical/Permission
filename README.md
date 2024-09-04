@@ -16,7 +16,7 @@
 
 ## Usage
 
-#### Permission
+#### Permission 
 
 > [`Permission.swift`](https://github.com/delba/Permission/blob/master/Source/Permission.swift)
 > [`PermissionStatus.swift`](https://github.com/delba/Permission/blob/master/Source/PermissionStatus.swift)
