@@ -39,7 +39,7 @@ extension Permission {
 
     func requestEvents(_ callback: @escaping Callback) {
         if #available(iOS 17.0, *) {
-            EKEventStore().requestFullAccessToEvents { _, _ in
+            EKEventStore().requestWriteOnlyAccessToEvents { _, _ in
                 callback(self.statusEvents)
             }
         } else {
